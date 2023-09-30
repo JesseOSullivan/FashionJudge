@@ -9,6 +9,11 @@
     border-radius: 15px;
     box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
     background-color: black;
+    display: flex;
+    justify-content: center;
+    flex-direction: column; /* Stacks children vertically */
+    align-items: center; /* Horizontally center the children */
+
 }
 
 .webcam-style video {
