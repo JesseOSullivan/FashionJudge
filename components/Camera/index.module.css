@@ -9,6 +9,12 @@
     border-radius: 15px;
     box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
     background-color: black;
+
+    display: flex;
+    justify-content: center;
+    flex-direction: column; /* Stacks children vertically */
+    align-items: center; /* Horizontally center the children */
+
 }
 
 .webcam-style video {
@@ -17,6 +23,7 @@
     height: auto;
     max-width: 100%;
     object-fit: cover;
+    
 }
 
 /* Styles for the capture button */
@@ -43,11 +50,13 @@
 @media (max-width: 768px) {
     .webcam-container {
         max-width: 95vw; /* Use almost the full width on mobile */
+        
     }
 
     .webcam-style video {
         width: 100%;
         height: 60vh; 
+        
     }
 
     .capture-button {
@@ -67,6 +76,7 @@
 
     .webcam-style video {
         height: 70vh; /* Increase the height to better fill the desktop screen */
+        
     }
 
     .capture-button {
