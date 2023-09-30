@@ -1,5 +1,5 @@
 import React from 'react';
-import Navbar from '@/components/Navbar/NavBar';
+import Navbar from '@components/Navbar';
 import '../styles/globals.css'; // or wherever your global styles are
 
 function MyApp({ Component, pageProps }) {
