@@ -1,0 +1,112 @@
+/* Navbar.module.css */
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background-color: #333;
+  color: #fff;
+  flex-direction: column;
+}
+
+.logo h2 {
+  margin: 0;
+}
+
+.navList {
+  list-style: none;
+  display: none;
+  flex-direction: column;
+  width: 100%;
+  gap: 0.5rem;
+}
+
+.navItem a {
+  color: #fff;
+  text-decoration: none;
+  padding: 0.5rem 0;
+  display: block;
+  text-align: center;
+  transition: background-color 0.3s;
+}
+
+.navItem a:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.authButtons {
+  display: flex;
+  gap: 1rem;
+  width: 100%;
+  justify-content: center;
+}
+
+.loginBtn, .signupBtn {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  width: 100%;
+}
+
+.loginBtn {
+  background-color: transparent;
+  color: #fff;
+  border: 1px solid #fff;
+}
+
+.loginBtn:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.signupBtn {
+  background-color: #1ebe61;
+  color: #fff;
+}
+
+.signupBtn:hover {
+  background-color: #259c57;
+}
+
+/* For larger screens */
+@media (min-width: 768px) {
+  .navbar {
+    flex-direction: row;
+  }
+  
+  .navList {
+    display: flex;
+    gap: 1rem;
+    flex-direction: row;
+  }
+  
+  .navItem a {
+    padding: 0.5rem 1rem;
+  }
+
+  .authButtons {
+    justify-content: flex-end;
+    gap: 0.5rem;
+  }
+
+  .loginBtn, .signupBtn {
+    width: auto;
+  }
+}
+
+/* Add styles for the hamburger menu button */
+.hamburger {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  cursor: pointer;
+  /* ... any other styles you want for the hamburger */
+}
+
+@media (min-width: 768px) {
+  .hamburger {
+    display: none;
+  }
+}

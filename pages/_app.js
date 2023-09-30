@@ -1,7 +1,14 @@
-import '@styles/globals.css'
+import React from 'react';
+import Navbar from '../components/Navbar/NavBar';
+import '../styles/globals.css'; // or wherever your global styles are
 
-function Application({ Component, pageProps }) {
-  return <Component {...pageProps} />
+function MyApp({ Component, pageProps }) {
+  return (
+    <div>
+      <Navbar />
+      <Component {...pageProps} />
+    </div>
+  );
 }
 
-export default Application
+export default MyApp;
