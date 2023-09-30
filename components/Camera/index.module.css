@@ -2,7 +2,7 @@
 
 .webcam-container {
     position: relative;
-    width: 90%;
+    width: 80%;
     max-width: 500px;
     margin: auto; /* Center the container */
     overflow: hidden;
@@ -61,7 +61,7 @@
 
 @media (min-width: 769px) {
     .webcam-container {
-        width: 100%; /* Reduce the width for desktop for better aesthetics */
+        width: 70%; /* Reduce the width for desktop for better aesthetics */
         max-width: 1200px; /* Increase the max-width to accommodate larger screens */
     }
 
