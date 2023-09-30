@@ -1,16 +1,10 @@
 const convert = require('color-convert');
 
 
-function sanitizeColorName(colorName) {
-    return colorName.replace(/\s+/g, '').toLowerCase();
-}
 
 
 export function colorNameToRgb(colorName) {
-    colorName = sanitizeColorName(colorName); // Add this line
-
     let hex = colourNameToHex(colorName);
-    
 
     if (!hex) {
         try {
