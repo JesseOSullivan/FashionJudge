@@ -25,7 +25,7 @@ function GPTQueryComponent({ content }) {
 
     return (
         <div>
-            <h2>GPT-3 Response:</h2>
+            <h2>Fashion Judges opinion:</h2>
             <p>{response}</p>
         </div>
     );

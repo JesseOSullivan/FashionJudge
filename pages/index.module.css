@@ -33,13 +33,22 @@
 
 .resultsContainer {
     display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    flex-direction: row; /* Changed from column to row */
+    justify-content: space-between;
+    align-items: flex-start; /* To align the tops of the two columns */
+    margin-top: 20px; /* Spacing between the camera and the results */
 }
 
-.colorDisplay {
-    color: #333;
-    font-weight: bold;
-    font-size: 1.5rem;
+.resultsContainer > div {
+    flex: 1;
+    padding: 10px;
+}
+
+/* Adjust if you want spacing between the two columns */
+.resultsContainer > div:first-child {
+    margin-right: 10px; 
+}
+
+.resultsContainer > div:last-child {
+    margin-left: 10px;
 }
