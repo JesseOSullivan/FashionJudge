@@ -16,9 +16,7 @@ const Navbar = () => {
         </div>
         <ul className={`${styles.navList} ${menuOpen ? styles.open : ''}`}>
         <li className={styles.navItem}><a href="/">Home</a></li>
-        <li className={styles.navItem}><a href="/features">Features</a></li>
         <li className={styles.navItem}><a href="/pricing">Pricing</a></li>
-        <li className={styles.navItem}><a href="/about">About</a></li>
         <li className={styles.navItem}><a href="/contact">Contact</a></li>
         </ul>
         <div className={styles.authButtons}>
