@@ -20,7 +20,7 @@ const Navbar = () => {
     }, []);
   
     const isDesktop = windowWidth >= 768;  // You can adjust the 768px breakpoint as needed
-    const imageWidth = isDesktop ? '180%' : '100%';
+    const imageWidth = isDesktop ? '200%' : '100%';
   
     return (
       <nav className={styles.navbar}>
@@ -29,7 +29,7 @@ const Navbar = () => {
         <img 
       src="/nav-logo.svg" 
       alt="Logo" 
-      style={{ maxWidth: imageWidth, height: 'auto' }} 
+      style={{ maxWidth: '400px', height: 'auto' }} 
     />
       </a>
         </div>
