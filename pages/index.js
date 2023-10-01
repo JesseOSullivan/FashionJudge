@@ -45,17 +45,21 @@ export default function Home() {
   const [asticaResults, setAsticaResults] = React.useState(null);
   const fashionDetails = extractFashionDetailsFromResults(apiResults);
   const [sliderValue, setSliderValue] = React.useState(50);  // initializing with 50 (Standard)
+  const [isPhotoTaken, setIsPhotoTaken] = React.useState(false);
 
+  const [loadingFeedback, setLoadingFeedback] = React.useState(false);
   const handleImageCapture = async (imageSrc) => {
+    setIsPhotoTaken(true);
+    setLoadingFeedback(true);  // Set the loadingFeedback to true immediately after taking a photo
     const results = await fetchData(imageSrc);
     const asticaData = await getAsticaDescription(imageSrc);
-  console.log(`Astica Data: ${JSON.stringify(asticaData)}`); // Use backticks and JSON.stringify for objects
-    console.log(results);
     setApiResults(results);
     setAsticaResults(asticaData);
+    setTimeout(() => {
+      setLoadingFeedback(false);  // Set it back to false after 5 seconds
+    }, 5);
+};
 
-    console.log(fashionDetails);
-  };
 
   let gptContentBase = `In 2 sentences, evaluate my outfit based on standard fashion rules, highlight any potential colour mismatches, and conclude with a brief judgment with constructive feedback. Feel free to suggest SPECIFIC alternatives or general suggestions. Do not mention or include ANY belts, watches, or shoes unless the colour is specified. Do not say it's difficult to evaluate. If there are unknowns, then ignore them. I'm wearing: ${fashionDetails.map(item => `${item.color} ${item.type}`).join(', ')}.`;
 
@@ -77,54 +81,75 @@ if (sliderValue === 0) {
 console.log(gptContent); // Log here to check the final gptContent
 
 
-
-  return (
-    <div className={styles.container}>
+return (
+  <div className={styles.container}>
       <main className={styles.main}>
-        {/* Row 1 - Camera */}
-        <div className={styles.row}>
-          <div className={styles.cameraContainer}>
-            <WebcamCapture onCapture={handleImageCapture} />
-            
-          </div>
-        </div>
-  
-        <div className={styles.slider}>
-        <DiscreteSliderValues value={sliderValue} setValue={setSliderValue} />
-        </div>
-
-        {/* Row 2 - Clothing and Feature Details */}
-        {fashionDetails.length > 0 && (
-          <div className={styles.row}>
-            <div className={styles.column}>
-              <h3>Detected Items</h3>
-              <ul>
-                {fashionDetails.map((item, idx) => (
-                  <li key={idx}>
-                    Color: {item.color}, Type: {item.type}
-                  </li>
-                ))}
-              </ul>
-            </div>
-            {asticaResults && (
-              <div className={styles.column}>
-                <h4>Identified Features</h4>
-                <p><strong>Skin Tone:</strong> {asticaResults["skin-tone"]}</p>
-                <p><strong>Hair Color:</strong> {asticaResults["hair-color"]}</p>
-                <p><strong>Eye Color:</strong> {asticaResults["eye-color"]}</p>
-              </div>
-            )}
-          </div>
-        )}
-  
-        {/* Row 3 - GPT Fetch AI Details */}
-        <div className={styles.row}>
-          <div>
-            <GPTQueryComponent content={gptContent} />
-          </div>
-        </div>
-      </main>
-      <Footer />
+      {/* Row 1 - Camera */}
+<div className={styles.row}>
+    <div className={styles.cameraContainer}>
+        <WebcamCapture onCapture={handleImageCapture} />
     </div>
-  );
-  };
+</div>
+{isPhotoTaken ? (
+    <>
+        {loadingFeedback ? (
+            <div className={styles.loadingFull}>
+                <div className={styles.spinner}></div>
+            </div>
+        ) : (
+            <>
+                <div className={styles.slider}>
+                    <DiscreteSliderValues value={sliderValue} setValue={setSliderValue} />
+                </div>
+
+                {/* Row 2 - Always show, regardless of detected items */}
+                <div className={styles.row}>
+                    <div className={styles.column}>
+                        <h3>Detected Items</h3>
+                        {fashionDetails.length > 0 ? (
+                            <ul>
+                                {fashionDetails.map((item, idx) => (
+                                    <li key={idx}>
+                                        Color: {item.color}, Type: {item.type}
+                                    </li>
+                                ))}
+                            </ul>
+                        ) : (
+                            <p>No items detected.</p>
+                        )}
+                    </div>
+
+                    {asticaResults ? (
+                        <div className={styles.column}>
+                            <h4>Identified Features</h4>
+                            <p><strong>Skin Tone:</strong> {asticaResults["skin-tone"]}</p>
+                            <p><strong>Hair Color:</strong> {asticaResults["hair-color"]}</p>
+                            <p><strong>Eye Color:</strong> {asticaResults["eye-color"]}</p>
+                        </div>
+                    ) : (
+                        <div className={styles.column}>
+                            <h4>Identified Features</h4>
+                            <p>No features identified.</p>
+                        </div>
+                    )}
+                </div>
+
+                {/* Row 3 - GPT Fetch AI Details */}
+                <div className={styles.row}>
+                    <div>
+                        <GPTQueryComponent content={gptContent} />
+                    </div>
+                </div>
+            </>
+        )}
+    </>
+) : (
+    <div className={styles.loading}>
+        <p>Please capture a photo to continue...</p>
+    </div>
+)}
+      </main>
+  </div>
+);
+}
+
