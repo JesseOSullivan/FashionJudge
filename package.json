@@ -8,6 +8,7 @@
     "export": "next export"
   },
   "dependencies": {
+    "@mui/material": "^5.14.11",
     "axios": "^1.5.1",
     "cypress": "^10.0.3",
     "next": "^12.1.5",
