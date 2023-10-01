@@ -31,7 +31,7 @@ const WebcamCapture = ({ onCapture }) => {
             return null; // Reset countdown after it hits 0
           }
           
-          return prev - 1; // Decrease the countdown
+          return prev - 1; // Decrease the countdowns
         });
       }, 1000);
     } else {
