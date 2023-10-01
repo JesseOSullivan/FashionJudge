@@ -5,7 +5,12 @@ const WebcamCapture = ({ onCapture }) => {
   const webcamRef = React.useRef(null);
   const [capturedImage, setCapturedImage] = React.useState(null);  // state to store the captured image
   const [webcamActive, setWebcamActive] = React.useState(true);    // state to check if webcam is active
+  const [cameraFacing, setCameraFacing] = React.useState("user"); // user = front camera, environment = back camera
 
+  const switchCamera = () => {
+    setCameraFacing(prev => prev === "user" ? "environment" : "user");
+  };
+  
   const capture = React.useCallback(() => {
     if (webcamActive) {  // only try to capture if webcam is active
       const imageSrc = webcamRef.current.getScreenshot();
@@ -20,13 +25,17 @@ const WebcamCapture = ({ onCapture }) => {
 
   return (
     <div className={styles['webcam-container']}>
+      <button onClick={switchCamera} className={styles['switch-camera']}>Switch Camera</button>
+
       {webcamActive ? (
           <Webcam
-            audio={false}
-            ref={webcamRef}
-            screenshotFormat="image/jpeg"
-            className={styles['webcam-style']}
-          />
+          audio={false}
+          ref={webcamRef}
+          screenshotFormat="image/jpeg"
+          className={styles['webcam-style']}
+          videoConstraints={{ facingMode: cameraFacing }}
+      />
+      
       ) : (
           <img src={capturedImage} alt="Captured" className={styles['webcam-style']} />  // display the captured image
       )}
