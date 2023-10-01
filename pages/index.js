@@ -7,8 +7,10 @@ import fetchData from '../api/fetchData';
 import ColorAssessment from '@components/colorAssessment/index';
 import GPTQueryComponent from '@components/chatgpt/chatgpt';
 import getAsticaDescription from '../api/fetchvision';
-
+import DiscreteSliderValues from '@components/slider/slider';
 import styles from './index.module.css';
+
+
 
 const extractColorsFromResults = (results) => {
   if (!results || !results.records || !results.records[0]._objects) return [];
@@ -42,6 +44,7 @@ export default function Home() {
   const [apiResults, setApiResults] = React.useState(null);
   const [asticaResults, setAsticaResults] = React.useState(null);
   const fashionDetails = extractFashionDetailsFromResults(apiResults);
+  const [sliderValue, setSliderValue] = React.useState(50);  // initializing with 50 (Standard)
 
   const handleImageCapture = async (imageSrc) => {
     const results = await fetchData(imageSrc);
@@ -62,15 +65,34 @@ export default function Home() {
     console.log(gptContent)
   }
 
-    return (
+  let judgementStyle = "";
+if (sliderValue === 0) {
+    judgementStyle = "Please give a gentle and positive feedback. ";
+} else if (sliderValue === 100) {
+    judgementStyle = "Be brutally honest. ";
+}
+gptContent += judgementStyle
+
+
+  return (
     <div className={styles.container}>
       <main className={styles.main}>
-        <div className={styles.cameraContainer}>
-          <WebcamCapture onCapture={handleImageCapture} />
+        {/* Row 1 - Camera */}
+        <div className={styles.row}>
+          <div className={styles.cameraContainer}>
+            <WebcamCapture onCapture={handleImageCapture} />
+            
+          </div>
         </div>
+  
+        <div className={styles.slider}>
+        <DiscreteSliderValues value={sliderValue} setValue={setSliderValue} />
+        </div>
+
+        {/* Row 2 - Clothing and Feature Details */}
         {fashionDetails.length > 0 && (
-          <div className={styles.resultsContainer}>
-            <div>
+          <div className={styles.row}>
+            <div className={styles.column}>
               <h3>Detected Items</h3>
               <ul>
                 {fashionDetails.map((item, idx) => (
@@ -81,20 +103,24 @@ export default function Home() {
               </ul>
             </div>
             {asticaResults && (
-              <div className={styles.featuresContainer}>
+              <div className={styles.column}>
                 <h4>Identified Features</h4>
                 <p><strong>Skin Tone:</strong> {asticaResults["skin-tone"]}</p>
                 <p><strong>Hair Color:</strong> {asticaResults["hair-color"]}</p>
                 <p><strong>Eye Color:</strong> {asticaResults["eye-color"]}</p>
               </div>
             )}
-            <div>
-              <GPTQueryComponent content={gptContent} />
-            </div>
           </div>
         )}
+  
+        {/* Row 3 - GPT Fetch AI Details */}
+        <div className={styles.row}>
+          <div>
+            <GPTQueryComponent content={gptContent} />
+          </div>
+        </div>
       </main>
       <Footer />
     </div>
   );
-};
+  };

@@ -18,11 +18,7 @@
 }
 
 .cameraContainer {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 2rem;
+    width: 100%;
 }
 
 .capturedImage {
@@ -33,10 +29,10 @@
 
 .resultsContainer {
     display: flex;
-    flex-direction: row; /* Changed from column to row */
+    flex-direction: row; 
     justify-content: space-between;
-    align-items: flex-start; /* To align the tops of the two columns */
-    margin-top: 20px; /* Spacing between the camera and the results */
+    align-items: flex-start; 
+    margin-top: 20px; 
 }
 
 .resultsContainer > div {
@@ -44,11 +40,38 @@
     padding: 10px;
 }
 
-/* Adjust if you want spacing between the two columns */
-.resultsContainer > div:first-child {
-    margin-right: 10px; 
+.featuresContainer, .itemsContainer {
+    width: 48%; /* giving them slightly less than 50% to account for potential padding/margins */
 }
 
-.resultsContainer > div:last-child {
-    margin-left: 10px;
+/* Adjust if you want spacing between the two columns */
+.featuresContainer {
+    margin-right: 2%;
 }
+
+.itemsContainer {
+    margin-left: 2%;
+}
+
+.row {
+    width: 100%;
+    display: flex;
+    justify-content: space-between; /* change to space-between for even space distribution */
+    align-items: flex-start; /* to align the tops of content within the row */
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+}
+
+.column {
+    flex: 1; 
+    max-width: 50%;
+    padding: 10px; 
+}
+
+/* Responsive adjustment for smaller screens */
+@media (max-width: 768px) {
+    .column, .featuresContainer, .itemsContainer {
+        max-width: 100%;
+    }
+}
+
