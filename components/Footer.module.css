@@ -1,13 +1,109 @@
+/* Footer.module.css */
+
 .footer {
   width: 100%;
-  height: 100px;
+  background-color: #f6f7f9;
   border-top: 1px solid #eaeaea;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  padding: 20px;  /* Adjusted padding for both mobile and desktop */
 }
 
-.logo {
-  height: 3em;
-  margin: 5px;
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;  /* Centers content vertically on mobile */
+  align-items: center; 
+  max-width: 1000px;  /* Reduced max-width for desktop */
+  margin: 0 auto;
 }
+
+.logoSection {
+  flex: 1;
+  margin-bottom: 20px;  /* Space out the logo from the links */
+  text-align: center;  /* Ensure logo is centered on mobile */
+}
+
+.linksSection {
+  flex: 2;
+  display: flex;
+  flex-direction: column;  /* Stack links vertically on mobile */
+  align-items: center; 
+  justify-content: center; /* Centers content vertically on mobile */
+  width: 100%;  /* Ensures the links section takes full width on mobile */
+}
+
+.linksSection div {
+  margin-bottom: 20px;
+  text-align: center;  /* Ensure links are centered on mobile */
+}
+
+.linksSection strong {
+  display: block;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.link {
+  color: #333;
+  text-decoration: none;
+  margin-bottom: 10px;
+  display: block;
+}
+
+.link:hover {
+  text-decoration: underline;
+}
+
+.copyright {
+  color: #888;
+  font-size: 14px;
+  margin-top: 20px; 
+  text-align: center;  /* Center align on mobile */
+}
+
+/* Larger Screens: Tablet and Desktop */
+@media (min-width: 768px) {
+  .container {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .linksSection {
+    flex-direction: row;
+    width: auto;  /* Reset width for desktop */
+  }
+
+  .linksSection div {
+    margin: 0;  /* Reset margins for desktop */
+    margin-right: 40px;  /* Space between link groups on desktop */
+  }
+
+  .copyright {
+    text-align: right;
+    margin-top: 10px;  /* give it some space if needed */
+
+  }
+}
+.logo {
+  /* Assuming the logo is too wide */
+  width: 200px; /* Adjust to preferred size */
+  /* If the logo is too tall, or if you want to control the height instead */
+  /* height: 50px; */
+  /* Keep the aspect ratio */
+  max-width: 100%; 
+  height: auto; 
+  display: block;
+  margin: 0 auto; /* Center logo horizontally */
+}
+
+
+.poweredBy {
+  margin: 0;
+  font-size: 14px;
+  margin-bottom: 10px;
+  text-align: center;  /* Center align for mobile and adjust as needed for desktop */
+  color: #666;  /* Lighter color to distinguish from copyright */
+}
+
+/* For desktop or other layout adjustments, 
+   you can modify or add styles within the existing media queries. */

@@ -1,9 +1,8 @@
 /* Navbar.module.css */
-
 .navbar {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  justify-content: center;  /* Aligns children horizontally in the center */
+  align-items: center;      /* Aligns children vertically in the center */
   padding: 1rem 2rem;
   background-color: #333;
   color: #fff;
@@ -108,4 +107,12 @@
   .hamburger {
     display: none;
   }
+}
+
+
+
+.navbar .logoSection .logo {
+  width: 50%; 
+  height: 50%;
+
 }

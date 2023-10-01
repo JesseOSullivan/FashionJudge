@@ -6,8 +6,8 @@ const Navbar = () => {
   
     return (
       <nav className={styles.navbar}>
-        <div className={styles.logo}>
-          <h2>FashionJudge</h2>
+        <div className={styles.logoSection}>
+        <img src="/nav-logo.svg" alt="Logo" style={{ maxWidth: '100%', height: 'auto' }} />
         </div>
         <div className={styles.hamburger} onClick={() => setMenuOpen(!menuOpen)}>
           <div></div>
