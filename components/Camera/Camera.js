@@ -6,26 +6,44 @@ const WebcamCapture = ({ onCapture }) => {
   const [capturedImage, setCapturedImage] = React.useState(null);  // state to store the captured image
   const [webcamActive, setWebcamActive] = React.useState(true);    // state to check if webcam is active
   const [cameraFacing, setCameraFacing] = React.useState("user"); // user = front camera, environment = back camera
+  const [countdown, setCountdown] = React.useState(null);
 
   const switchCamera = () => {
     setCameraFacing(prev => prev === "user" ? "environment" : "user");
   };
+
+  
   
   const capture = React.useCallback(() => {
-    if (webcamActive) {  // only try to capture if webcam is active
-      const imageSrc = webcamRef.current.getScreenshot();
-      setCapturedImage(imageSrc);  // set the captured image
-      onCapture(imageSrc);
-      setWebcamActive(false);  // set webcam to inactive after capturing
+    if (webcamActive) {
+      setCountdown(3);  // Start the countdown
+  
+      const timer = setInterval(() => {
+        setCountdown(prev => {
+          if (prev === 1) {
+            clearInterval(timer);
+  
+            const imageSrc = webcamRef.current.getScreenshot();
+            setCapturedImage(imageSrc);
+            onCapture(imageSrc);
+            setWebcamActive(false);
+  
+            return null; // Reset countdown after it hits 0
+          }
+          
+          return prev - 1; // Decrease the countdown
+        });
+      }, 1000);
     } else {
-      setCapturedImage(null);  // clear the captured image
-      setWebcamActive(true);   // revert back to live webcam feed
+      setCapturedImage(null);
+      setWebcamActive(true);
     }
   }, [webcamRef, onCapture, webcamActive]);
-
+  
   return (
     <div className={styles['webcam-container']}>
       <button onClick={switchCamera} className={styles['switch-camera']}>Switch Camera</button>
+      {countdown && <div className={styles['countdown']}>{countdown}</div>}
 
       {webcamActive ? (
           <Webcam
