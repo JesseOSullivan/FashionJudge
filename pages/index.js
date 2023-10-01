@@ -17,7 +17,6 @@ const extractColorsFromResults = (results) => {
   return results.records[0]._objects.map(obj => obj._tags_map.Color);
 };
 
-
 const extractFashionDetailsFromResults = (results) => {
   if (!results || !results.records || !results.records[0]._objects) return [];
 
@@ -47,15 +46,6 @@ export default function Home() {
   const fashionDetails = extractFashionDetailsFromResults(apiResults);
   const [sliderValue, setSliderValue] = React.useState(50);  // initializing with 50 (Standard)
 
-
-
-
-const handleSliderChange = (value) => {
-  console.log("Slider Value:", value);
-  setSliderValue(value);
-};
-
-
   const handleImageCapture = async (imageSrc) => {
     const results = await fetchData(imageSrc);
     const asticaData = await getAsticaDescription(imageSrc);
@@ -77,17 +67,19 @@ const handleSliderChange = (value) => {
   }
 
   let judgementStyle = "";
-  if (sliderValue === 0) {
-    console.log("ross");
+if (sliderValue === 0) {
+  console.log("ross")
     judgementStyle = "Please give a gentle and positive feedback. ";
-  } else if (sliderValue === 100) {
-    console.log("gordan");
+} else if (sliderValue === 100) {
+  console.log("gordan")
+
     judgementStyle = "Be brutally honest. ";
-  }
-  
-  gptContent = judgementStyle + gptContent;
-  console.log(gptContent); // Now you can check the final gptContent
-  
+gptContent += judgementStyle
+
+}
+console.log
+
+
   return (
     <div className={styles.container}>
       <main className={styles.main}>
