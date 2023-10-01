@@ -17,6 +17,7 @@ const extractColorsFromResults = (results) => {
   return results.records[0]._objects.map(obj => obj._tags_map.Color);
 };
 
+
 const extractFashionDetailsFromResults = (results) => {
   if (!results || !results.records || !results.records[0]._objects) return [];
 
@@ -46,6 +47,15 @@ export default function Home() {
   const fashionDetails = extractFashionDetailsFromResults(apiResults);
   const [sliderValue, setSliderValue] = React.useState(50);  // initializing with 50 (Standard)
 
+
+
+
+const handleSliderChange = (value) => {
+  console.log("Slider Value:", value);
+  setSliderValue(value);
+};
+
+
   const handleImageCapture = async (imageSrc) => {
     const results = await fetchData(imageSrc);
     const asticaData = await getAsticaDescription(imageSrc);
@@ -57,23 +67,27 @@ export default function Home() {
     console.log(fashionDetails);
   };
 
-  let gptContent = `In 2 sentences, evaluate my outfit based on standard fashion rules, be brutally honest, highlight any potential colour mismatches, and conclude with a brief judgment with constructive feedback. Feel free to suggest SPECIFIC alternatives or general suggestions. Do not mention or include ANY belts, watches, or shoes unless the colour is specified. Do not say it's difficult to evaluate. If there are unknowns, then ignore them. I'm wearing: ${fashionDetails.map(item => `${item.color} ${item.type}`).join(', ')}.`;
+  let gptContent = `In 2 sentences, evaluate my outfit based on standard fashion rules, highlight any potential colour mismatches, and conclude with a brief judgment with constructive feedback. Feel free to suggest SPECIFIC alternatives or general suggestions. Do not mention or include ANY belts, watches, or shoes unless the colour is specified. Do not say it's difficult to evaluate. If there are unknowns, then ignore them. I'm wearing: ${fashionDetails.map(item => `${item.color} ${item.type}`).join(', ')}.`;
 
   if(asticaResults) {
 
     gptContent += ` My skin tone is ${asticaResults["skin-tone"]}, hair color is ${asticaResults["hair-color"]}, and eye color is ${asticaResults["eye-color"]}.`;
     console.log(gptContent)
+
   }
 
   let judgementStyle = "";
-if (sliderValue === 0) {
+  if (sliderValue === 0) {
+    console.log("ross");
     judgementStyle = "Please give a gentle and positive feedback. ";
-} else if (sliderValue === 100) {
+  } else if (sliderValue === 100) {
+    console.log("gordan");
     judgementStyle = "Be brutally honest. ";
-}
-gptContent += judgementStyle
-
-
+  }
+  
+  gptContent = judgementStyle + gptContent;
+  console.log(gptContent); // Now you can check the final gptContent
+  
   return (
     <div className={styles.container}>
       <main className={styles.main}>
