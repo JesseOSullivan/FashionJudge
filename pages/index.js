@@ -57,27 +57,25 @@ export default function Home() {
     console.log(fashionDetails);
   };
 
-  let gptContent = `In 2 sentences, evaluate my outfit based on standard fashion rules, highlight any potential colour mismatches, and conclude with a brief judgment with constructive feedback. Feel free to suggest SPECIFIC alternatives or general suggestions. Do not mention or include ANY belts, watches, or shoes unless the colour is specified. Do not say it's difficult to evaluate. If there are unknowns, then ignore them. I'm wearing: ${fashionDetails.map(item => `${item.color} ${item.type}`).join(', ')}.`;
+  let gptContentBase = `In 2 sentences, evaluate my outfit based on standard fashion rules, highlight any potential colour mismatches, and conclude with a brief judgment with constructive feedback. Feel free to suggest SPECIFIC alternatives or general suggestions. Do not mention or include ANY belts, watches, or shoes unless the colour is specified. Do not say it's difficult to evaluate. If there are unknowns, then ignore them. I'm wearing: ${fashionDetails.map(item => `${item.color} ${item.type}`).join(', ')}.`;
 
   if(asticaResults) {
-
-    gptContent += ` My skin tone is ${asticaResults["skin-tone"]}, hair color is ${asticaResults["hair-color"]}, and eye color is ${asticaResults["eye-color"]}.`;
-    console.log(gptContent)
-
-  }
-
-  let judgementStyle = "";
-if (sliderValue === 0) {
-  console.log("ross")
-    judgementStyle = "Please give a gentle and positive feedback. ";
-} else if (sliderValue === 100) {
-  console.log("gordan")
-
-    judgementStyle = "Be brutally honest. ";
-gptContent += judgementStyle
-
+    gptContentBase += ` My skin tone is ${asticaResults["skin-tone"]}, hair color is ${asticaResults["hair-color"]}, and eye color is ${asticaResults["eye-color"]}.`;
 }
-console.log
+
+let gptContent = "";
+if (sliderValue === 0) {
+  console.log("ross");
+  gptContent = "Please provide a gentle and positive evaluation like Bob Ross. " + gptContentBase;
+} else if (sliderValue === 50) {  // Assuming 50 is the standard value
+  console.log("standard");
+  gptContent = "Give a neutral and balanced feedback. " + gptContentBase;
+} else if (sliderValue === 100) {
+  console.log("gordan");
+  gptContent = "Be brutally honest like Gordon Ramsay and use strong language often. " + gptContentBase;
+}
+console.log(gptContent); // Log here to check the final gptContent
+
 
 
   return (
