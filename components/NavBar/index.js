@@ -1,13 +1,37 @@
-import React from 'react';
 import styles from './NavBar.module.css';
+import React, { useState, useEffect } from 'react';
+
+
 
 const Navbar = () => {
     const [menuOpen, setMenuOpen] = React.useState(false);
+    const [windowWidth, setWindowWidth] = useState(0);
+
+    useEffect(() => {
+      const handleResize = () => {
+        setWindowWidth(window.innerWidth);
+      };
+  
+      window.addEventListener('resize', handleResize);
+  
+      return () => {
+        window.removeEventListener('resize', handleResize);
+      };
+    }, []);
+  
+    const isDesktop = windowWidth >= 768;  // You can adjust the 768px breakpoint as needed
+    const imageWidth = isDesktop ? '180%' : '100%';
   
     return (
       <nav className={styles.navbar}>
         <div className={styles.logoSection}>
-        <img src="/nav-logo.svg" alt="Logo" style={{ maxWidth: '100%', height: 'auto' }} />
+        <a href="/">
+        <img 
+      src="/nav-logo.svg" 
+      alt="Logo" 
+      style={{ maxWidth: imageWidth, height: 'auto' }} 
+    />
+      </a>
         </div>
         <div className={styles.hamburger} onClick={() => setMenuOpen(!menuOpen)}>
           <div></div>
@@ -15,9 +39,6 @@ const Navbar = () => {
           <div></div>
         </div>
         <ul className={`${styles.navList} ${menuOpen ? styles.open : ''}`}>
-        <li className={styles.navItem}><a href="/">Home</a></li>
-        <li className={styles.navItem}><a href="/pricing">Pricing</a></li>
-        <li className={styles.navItem}><a href="/contact">Contact</a></li>
         </ul>
         <div className={styles.authButtons}>
         <button className={styles.loginBtn}>Login</button>

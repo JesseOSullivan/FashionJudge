@@ -60,12 +60,12 @@
 }
 
 .signupBtn {
-  background-color: #1ebe61;
+  background-color: #be1e8e;
   color: #fff;
 }
 
 .signupBtn:hover {
-  background-color: #259c57;
+  background-color: #3f052f;
 }
 
 /* For larger screens */
