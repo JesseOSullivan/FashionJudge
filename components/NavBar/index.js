@@ -29,7 +29,7 @@ const Navbar = () => {
         <img 
       src="/nav-logo.svg" 
       alt="Logo" 
-      style={{ maxWidth: '400px', height: 'auto' }} 
+      style={{ maxWidth: '500px', height: 'auto' }} 
     />
       </a>
         </div>
